@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsp.dao.UserDAO">
+    <select id="selectUserByName" resultType="User">
+        select id,
+               username,
+               realname,
+               password,
+               sex,
+               age,
+               salary,
+               role
+        from em_user
+        where username like #{username}
+    </select>
+    <select id="selectAllUser" resultType="User">
+        select id,
+               username,
+               realname,
+               password,
+               sex,
+               age,
+               salary,
+               role
+        from em_user
+        where role = 1
+    </select>
+    <insert id="insertUser">
+        insert into em_user
+        (id,username,
+        <if test="user.realname!=null and !user.realname.equals('')">realname,</if>
+        <if test="user.password!=null and !user.password.equals('')">password,</if>
+        <if test="user.age!=null and !user.age.equals('')">age,</if>
+        <if test="user.sex!=null and !user.sex.equals('')">sex,</if>
+        <if test="user.salary!=null and !user.salary.equals('')">salary,</if>
+        role)
+        values (0, #{user.username},
+        <if test="user.realname!=null and !user.realname.equals('')">#{user.realname},</if>
+        <if test="user.password!=null and !user.password.equals('')">#{user.password},</if>
+        <if test="user.age!=null and !user.age.equals('')">#{user.age},</if>
+        <if test="user.sex!=null and !user.sex.equals('')">#{user.sex},</if>
+        <if test="user.salary!=null and !user.salary.equals('')">#{user.salary},</if>
+        #{user.role})
+    </insert>
+    <delete id="deleteUserById">
+        delete
+        from em_user
+        where id = #{id}
+    </delete>
+    <update id="updateUser">
+        update em_user
+        <set>
+            <if test="user.username!=null and !user.username.equals('')">
+                username = #{user.username},
+            </if>
+            <if test="user.realname!=null and !user.realname.equals('')">
+                realname = #{user.realname},
+            </if>
+            <if test="user.password!=null and !user.password.equals('')">
+                password = #{user.password},
+            </if>
+            <if test="user.age!=null and !user.age.equals('')">
+                age = #{user.age},
+            </if>
+            <if test="user.sex!=null and !user.sex.equals('')">
+                sex = #{user.sex},
+            </if>
+            <if test="user.salary!=null and !user.salary.equals('')">
+                salary = #{user.salary}
+            </if>
+        </set>
+        where id=#{user.id}
+    </update>
+    <select id="selectUserById" resultType="User">
+        select id,
+               username,
+               realname,
+               password,
+               sex,
+               age,
+               salary,
+               role
+        from em_user
+        where id = #{id}
+    </select>
+</mapper>
