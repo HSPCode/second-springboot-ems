@@ -15,5 +15,6 @@ public class TestUser {
     @Test
     public void test1() {
         System.out.println("123456");
+        System.out.println("654321");
     }
 }
